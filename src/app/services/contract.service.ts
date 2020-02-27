@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 // I already try with all of this:
 
-// import Ae from '@aeternity/aepp-sdk/es/ae/universal';
-import Ae from '@aeternity/aepp-sdk/es/ae/';
+import Ae from '@aeternity/aepp-sdk/es/ae/universal';
+// import Ae from '@aeternity/aepp-sdk/es/ae/';
 // import Aepp from '@aeternity/aepp-sdk/es/ae/aepp';
 // import Aepp from '@aeternity/aepp-sdk/es/ae';
 
