@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Aepp from '@aeternity/aepp-sdk/es/ae/aepp';
+
+// I already try with all of this:
+
+// import Ae from '@aeternity/aepp-sdk/es/ae/universal';
+import Ae from '@aeternity/aepp-sdk/es/ae/';
+// import Aepp from '@aeternity/aepp-sdk/es/ae/aepp';
+// import Aepp from '@aeternity/aepp-sdk/es/ae';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +29,7 @@ export class ContractService {
       this.contractSource = data; // This works
       try {
         // Aepp approach
-        this.client = await Aepp();
+        this.client = await Ae.Aepp();
         const contractInstance = await this.client.getContractInstance(this.contractSource, { contractAddress: this.contractAddress });
         // Calling the function 'getUser()' that detects the user by an id (E1AHz2NGgOPisLtWNNOkevL9k3W2)
         const calledGet = await contractInstance
