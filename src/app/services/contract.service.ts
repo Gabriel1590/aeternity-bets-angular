@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-// I already try with all of this:
-
-import Ae from '@aeternity/aepp-sdk/es/ae/universal';
+import { Aepp } from '@aeternity/aepp-sdk/';
+import contractDetails from '../../assets/contracts/sophia.js';
 // import Ae from '@aeternity/aepp-sdk/es/ae/';
 // import Aepp from '@aeternity/aepp-sdk/es/ae/aepp';
 // import Aepp from '@aeternity/aepp-sdk/es/ae';
@@ -14,23 +11,20 @@ import Ae from '@aeternity/aepp-sdk/es/ae/universal';
 export class ContractService {
 
   // Address of the Contract
-  contractAddress = 'ct_2Sc2HBMMYvp5JgMLd4BVtCTwP3dpfFqAvEHYNQ22g1yNiEsUtA';
   contractSource: any;
   client = null;
   node: any;
   acc: any;
 
-  constructor( private http: HttpClient ) {
+  constructor( ) {
   }
 
-  get() {
-    // Getting the contract named sophia.aes inside assets/contracts
-    this.http.get('assets/contracts/sophia.aes', { responseType: 'text' as 'json'}).subscribe(async (data) => {
-      this.contractSource = data; // This works
+  async get() {
       try {
         // Aepp approach
-        this.client = await Ae.Aepp();
-        const contractInstance = await this.client.getContractInstance(this.contractSource, { contractAddress: this.contractAddress });
+        this.client = await Aepp();
+        const contractInstance = await this.client
+        .getContractInstance(contractDetails.contractSource, { contractAddress: contractDetails.contractAddress });
         // Calling the function 'getUser()' that detects the user by an id (E1AHz2NGgOPisLtWNNOkevL9k3W2)
         const calledGet = await contractInstance
         .call('getUser', ['E1AHz2NGgOPisLtWNNOkevL9k3W2'], {callStatic: true}).catch(e => console.error(e));
@@ -42,7 +36,6 @@ export class ContractService {
       } catch (err) {
         console.log(err);
       }
-    });
   }
 
 }
